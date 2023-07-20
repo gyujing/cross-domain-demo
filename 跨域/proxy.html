@@ -1,0 +1,30 @@
+<html xmlns="<A href="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</A>">
+<head>
+    <title>a.com</title>
+</head>
+<body>
+<div id="Div1">A.com/proxy.html</div>
+<div id="div_msg"></div>
+<script type="text/javascript">
+    var topWin = top;
+    function showMsg(msg) {
+        document.getElementById("div_msg").innerHTML = msg;
+    }
+
+    function getMessage(data) {
+        showMsg("messageForm A.com/a.html:" + data + "<br/>两秒后将跳转到B.com/bproxy.html");
+        window.name = data;
+        setTimeout(function () { location.href = "<a href="http://localhost:8091/b.com/bproxy.htm">http://localhost:8091/b.com/bproxy.htm</a>" }, 2000);// 为了能让大家看到跳转的过程，所以加了个延时
+            }
+
+        function sendMessage(data) {
+            topWin.proxyWin = window;
+            topWin.getMessage(data);
+        }
+
+        var search = location.search.substring(1);
+        showMsg("messageForm B.com/b.html:" + search);
+        sendMessage(search);
+</script>
+</body>
+</html>

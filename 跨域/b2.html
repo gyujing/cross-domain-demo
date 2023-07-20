@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>slave1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="cross-domain.js"></script>
+</head>
+<body>
+<div id="main">
+    <textarea id="message">这是员工的密码！</textarea><br/>
+    <button onclick="sendMesg()">看看领导在说什么</button>
+</div>
+<div id="content"></div>
+</body>
+<script type="text/javascript">
+    var me = CD.component.name;
+    function genInfo(){
+        var message = document.getElementById("message").value;
+        return {info : message};
+    }
+    //调用MASTER的changeMaster接口，数据为genInfo("MESTER")
+    function sendMesg (argument) {
+        CD.send("MESTER" , "changeMaster" ,genInfo());
+    }
+
+    //提供前端接口changeSlave1，可供MASTER和其它SLAVE调用
+    CD.extends("changeSlave1" , function(data){
+        writeHtml(data.info);
+    });
+
+    function writeHtml(text){
+        var content = document.getElementById("content");
+        content.innerHTML += "<br/>" + text;
+    }
+    console.log(CD);
+</script>
+
+</html>

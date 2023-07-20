@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--引入js库-->
+    <script type="text/javascript" src="cross-domain.js"></script>
+</head>
+<body>
+<textarea id="message">这是高层的密码！</textarea><br>
+<button onclick="sendMesg1()">看看员工在说什么</button>
+<div id="content"></div>
+<br/>
+<!--slave1-->
+<!--<iframe src="http://202.102.25.145:90/testmap/b2.html" name="SLAVE1" id="SLAVE1"></iframe>-->
+<iframe src="b2.html" name="SLAVE1" id="SLAVE1"></iframe>
+
+</body>
+
+<script type="text/javascript">
+
+    var me = CD.component.name;
+
+    //MASTER提供接口，可供SLAVE调用
+    CD.extends("changeMaster", function (data) {
+        alert(data);
+    });
+
+
+    function genInfo() {
+        var message = document.getElementById("message").value;
+        return {info: message};
+    }
+
+    //调用SLAVE2的changeSlave1前端接口，接口参数为genInfo("SLAVE1")
+     function sendMesg1(argument) {
+        CD.send("SLAVE1", "changeSlave1", genInfo());
+    }
+
+    //当SLAVE1和SLAVE2调用changeMaster接口时，会打印在MASTER的页面中
+    function writeHtml(text) {
+        var content = document.getElementById("content");
+        content.innerHTML += "<br/>" + text;
+    }
+
+    console.log(CD);
+</script>
+</html>

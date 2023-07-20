@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>JSONP方式</title>
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+</head>
+<body>
+<!--<textarea id="message">这是员工的密码！</textarea><br/>-->
+<button id="test">看看领导在说什么</button>
+<button id="dd">看看父类数据</button>
+
+
+<br/>
+<script>
+
+    document.getElementById("test").onclick = function () {
+        alert(parent.document.getElementById("message").value);
+    };
+    document.getElementById("dd").onclick = function () {
+        // alert(parent.document.getElementById("input").value);
+        alert(parent.document.getElementById("input").value);
+    }
+
+
+</script>
+</body>
+</html>
